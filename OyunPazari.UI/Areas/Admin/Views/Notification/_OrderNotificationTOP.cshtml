@@ -1,0 +1,35 @@
+﻿
+@model List<Order>
+
+
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-messages">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("Detail","Order",new { area="Admin",id=item.ID})">
+                    <div>
+                        <strong>@item.ID</strong>
+                        <span class="pull-right text-muted">
+                            <em><strong>@item.AppUser.UserName</strong>&nbsp;@item.OrderDate.ToShortDateString()</em>
+                        </span>
+                    </div>
+                    <div><strong>@item.OrderStatus</strong></div>
+                </a>
+            </li>
+            <li class="divider"></li>
+        }
+
+
+        <li>
+            <a class="text-center" href="@Url.Action("PendingList","Order")">
+                <strong>List All Pending Orders</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <!-- /.dropdown-messages -->
+</li>

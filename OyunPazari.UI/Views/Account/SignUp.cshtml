@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+        <form action="/Account/Signup" method="post">
+
+            <div class="form-group">
+                <label for="UserName">
+                    UserName
+                </label>
+                <input name="UserName" required class="form-control" />
+                <span style="color:red">@ViewBag.Message</span>
+            </div>
+
+            <div class="form-group">
+                <label for="Password">
+                    Password
+                </label>
+                <input type="password" name="Password" required class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Email">
+                    Email
+                </label>
+                <input type="email" name="Email" required class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Name">
+                    Name
+                </label>
+                <input name="Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="LastName">
+                    LastName
+                </label>
+                <input name="LastName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="PhoneNumber">
+                    Phone Number
+                </label>
+                <input name="PhoneNumber" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="BirthDate">
+                    BirthDate
+                </label>
+                <input type="date" name="BirthDate" class="form-control" />
+            </div>
+
+
+
+            <input type="submit" value="Ekle" class="form-control btn btn-danger" style="background-color:#D10024" />
+
+        </form>
+    </div>

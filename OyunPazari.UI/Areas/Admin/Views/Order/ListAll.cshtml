@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "ListAll";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<OyunPazari.Model.Entities.Order>
+
+
+
+<div class="col-md-12">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Sipariş Kodu</th>
+                <th>Müşteri Kullanıcı Adı</th>
+                <th>Müşteri Email</th>
+                <th>Sipariş Tarihi</th>
+                <th>Onay Durumu</th>
+                <th colspan="2">Sipariş Detay</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.AppUser.UserName</td>
+                <td>@item.AppUser.Email</td>
+                <td>@item.OrderDate</td>
+                @{
+                    if (item.OrderStatus == OrderStatus.Completed)
+                    {
+                        <td class="success">Onaylandı</td>
+                    }
+                    else if (item.OrderStatus == OrderStatus.Declined)
+                    {
+                        <td class="danger">İptal Edildi</td>
+                    }
+                    else
+                    {
+                        <td class="warning">@item.OrderStatus</td>
+                    }
+                }
+                <td>
+                    <a href="/Admin/Order/Detail/@item.ID">Sipariş Detayını Görüntüle</a>
+
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

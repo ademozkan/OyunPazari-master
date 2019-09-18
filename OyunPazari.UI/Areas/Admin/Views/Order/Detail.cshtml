@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@model List<OrderDetail>
+
+
+
+<div class="col-md-12">
+    <span>Sipariş Kodu : <strong>@Model[0].OrderID</strong></span> &nbsp;
+    <a href="@Url.Action("ConfirmOrder","Order",new {area="Admin",id=Model[0].OrderID })">Siparişi Onayla <i class="fa fa-check"></i></a> &nbsp;
+    <a href="@Url.Action("RejectOrder","Order",new {area="Admin",id=Model[0].OrderID })">Siparişi Reddet <i class="fa fa-circle"></i></a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Ürün Görseli</th>
+                <th>Ürün Adı</th>
+                <th>Ürün Birim Fiyatı</th>
+                <th>Ürün Miktarı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Product.ImagePath" style="display:block" height="40"/>
+                    </td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.UnitPrice</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <span>Toplam Sipariş Tutarı : @Model[0].Order.TotalPrice <i class="fa fa-dollar"></i></span>
+</div>

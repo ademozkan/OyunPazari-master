@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@using OyunPazari.Model.Entities
+@model Product
+
+
+    <form action="/Admin/Product/Update" method="post" enctype="multipart/form-data">
+
+
+
+        <div class="form-group">
+            <img src="@Model.ImagePath" class="img-rounded" height="200"/>
+        </div>
+
+        <div class="form-group">
+            <label for="Image">
+                Ürün Görseli
+            </label>
+            <input type="file" name="Image" class="form-control" />
+        </div>
+
+
+        <div class="form-group">
+            <label for="ID">
+                Ürün ID
+            </label>
+            <input readonly name="ID" value="@Model.ID" class="form-control" />
+        </div>
+
+        @*@Html.HiddenFor(x=>x.ID)*@
+
+
+        <div class="form-group">
+            <label for="Name">
+                Ürün Adı
+            </label>
+            <input name="Name" value="@Model.Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="UnitsInStock">
+                Ürün Stok Adedi
+            </label>
+            <input name="UnitsInStock" value="@Model.UnitsInStock" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="UnitPrice">
+                Ürün Fiyatı
+            </label>
+            <input name="UnitPrice" value="@Model.UnitPrice" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="DisplayOnWeb">
+                Webde Göster
+            </label>
+            <input type="checkbox" data-val="true" checked="@Model.DisplayOnWeb" value="true" name="DisplayOnWeb" class="checkbox" />
+        </div>
+
+
+        <div class="form-group">
+            <label for="DisplayOnMobile">
+                Mobilde Göster
+            </label>
+            <input type="checkbox" data-val="true" checked="@Model.DisplayOnMobile" value="true" name="DisplayOnMobile" class="checkbox" />
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="Features">
+                Ürün Özellikleri
+            </label>
+            <textarea name="Features" class="form-control" rows="5">@Model.Features</textarea>
+        </div>
+
+
+        <div class="form-group">
+            <label for="CategoryID">
+                Ürün Kategorisi
+            </label>
+            <select class="form-control" name="CategoryID">
+                @foreach (var item in ViewData["Categories"] as List<Category>)
+                {
+                    <option @(Model.CategoryID == item.ID ? "selected=\"selected\"" : "") value="@item.ID">@item.Name</option>
+                }
+            </select>
+        </div>
+
+
+
+        <input type="submit" value="Güncelle" class="form-control btn btn-primary" />
+
+    </form>
+
+<br /><br /><br /><br />

@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Order Details -->
+<div class="row">
+    <div class="col-md-offset-3 col-md-6 order-details">
+        <div class="section-title text-center">
+            <h3 class="title">Your Order</h3>
+        </div>
+        <div class="order-summary">
+            <div class="order-col">
+                <div><strong>PRODUCT</strong></div>
+                <div><strong>TOTAL</strong></div>
+            </div>
+            <div id="productList" class="order-products">
+                @*<div class="order-col">
+                        <div>1x Product Name Goes Here</div>
+                        <div>$980.00</div>
+                    </div>*@
+                @*<div class="order-col"><div>2x Product Name Goes Here</div><div>$980.00</div></div>*@
+            </div>
+            <div class="order-col">
+                <div>Shiping</div>
+                <div><strong>FREE</strong></div>
+            </div>
+            <div class="order-col">
+                <div><strong>TOTAL</strong></div>
+                <div><strong class="order-total"><span id="total"></span></strong></div>
+            </div>
+        </div>
+        <div class="payment-method">
+            <div class="input-radio">
+                <input type="radio" name="payment" id="payment-1">
+                <label for="payment-1">
+                    <span></span>
+                    User Information
+                </label>
+                <div class="caption">
+                    <p>@ViewBag.User.Name @ViewBag.LastName</p>
+                </div>
+            </div>
+            <div class="input-radio">
+                <input type="radio" name="payment" id="payment-2">
+                <label for="payment-2">
+                    <span></span>
+                    Billing Address
+                </label>
+                <div class="caption">
+                    <p>@ViewBag.Address</p>
+                </div>
+            </div>
+            <div class="input-radio">
+                <input type="radio" name="payment" id="payment-3">
+                <label for="payment-3">
+                    <span></span>
+                    Paypal System
+                </label>
+                <div class="caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+        </div>
+        <div class="input-checkbox">
+            <input type="checkbox" id="terms">
+            <label for="terms">
+                <span></span>
+                I've read and accept the <a href="#">terms & conditions</a>
+            </label>
+        </div>
+        <a href="@Url.Action("Create","Order",new { area="Member"})" class="primary-btn order-submit">Place order</a>
+    </div>
+    <!-- /Order Details -->
+</div>
+
+@section BOTTOM_JS_SECTION{
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                
+                $.getJSON("@Url.Action("List","Cart",new { area="Member"})", function (data) {
+                    //İçini temizle
+                   
+                    $("#productList div").remove();
+
+                    //Eleman sayısını yakalıyoruz.
+                    var count = Object.keys(data).length;
+
+                    var totalAmount = 0;
+                    
+                    //Eğer eleman sayısı 0'dan büyükse, döngü ile tek tek her elemanı atıyoruz.
+
+                    if (count > 0) {
+                        $.each(data, function (key, item) {
+                            //json sepet datasını döngüyle ekrana bas.
+                            $("#productList").append("<div class='order-col'><div>" + item.Quantity + "x " + item.ProductName + "</div><div>$" + item.UnitPrice + "</div></div>");
+                            totalAmount += (item.Quantity * item.UnitPrice);
+                        });
+                    }
+
+                    $("#total").html("$" + totalAmount);
+
+                }
+
+
+            )},500)
+        })
+    </script>
+}

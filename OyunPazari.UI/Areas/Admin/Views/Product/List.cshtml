@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<OyunPazari.Model.Entities.Product>
+
+
+
+<div class="col-md-12">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Stok Miktarı</th>
+                <th>Fiyat</th>
+                <th>Webde Göster</th>
+                <th>Mobilde Göster</th>
+                @*<th>Özellikler</th>*@
+                <th>Görsel</th>
+
+                <th colspan="2">Güncelle / Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.UnitsInStock</td>
+                <td>@item.UnitPrice</td>
+
+                @{
+                    if (item.DisplayOnWeb)
+                    {
+                        <td class="success">Webde Gösterilir</td>
+                    }
+                    else
+                    {
+                        <td class="danger">Webde Gösterilmez</td>
+                    }
+                }
+                @{
+                    if (item.DisplayOnMobile)
+                    {
+                        <td class="success">Mobilde Gösterilir</td>
+                    }
+                    else
+                    {
+                        <td class="danger">Mobilde Gösterilmez</td>
+                    }
+                }
+                @*<td>@item.Features</td>*@
+                <td>
+                    <img src="@item.ImagePath" style="display:block" height="40"/>
+                </td>
+                <td>
+                    <a href="/Admin/Product/Update/@item.ID">Güncelle</a>
+                    /
+                    <a href="/Admin/Product/Delete/@item.ID">Sil</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
